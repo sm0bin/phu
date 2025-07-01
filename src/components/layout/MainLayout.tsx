@@ -5,6 +5,9 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
+import { generateSidebarItems } from "../../utils/generateSidebarItems";
+import { adminPaths } from "../../routes/admin.routes";
+import { Outlet } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
 type MenuItem = {
@@ -12,6 +15,12 @@ type MenuItem = {
   icon?: React.ReactNode;
   label: string;
   children?: MenuItem[];
+};
+
+const userRole = {
+  ADMIN: "admin",
+  FACULTY: "faculty",
+  STUDENT: "student",
 };
 
 // const items = [
@@ -24,38 +33,40 @@ type MenuItem = {
 //   icon: React.createElement(icon),
 //   label: `nav ${index + 1}`,
 // }));
-const items: MenuItem[] = [
-  {
-    key: "1",
-    icon: <UserOutlined />,
-    label: "nav 1",
-  },
-  {
-    key: "2",
-    icon: <VideoCameraOutlined />,
-    label: "nav 2",
-    children: [
-      {
-        key: "2-1",
-        label: "option 1",
-      },
-      {
-        key: "2-2",
-        label: "option 2",
-      },
-    ],
-  },
-  {
-    key: "3",
-    icon: <UploadOutlined />,
-    label: "nav 3",
-  },
-  {
-    key: "4",
-    icon: <UserOutlined />,
-    label: "nav 4",
-  },
-];
+// const items: MenuItem[] = [
+//   {
+//     key: "1",
+//     icon: <UserOutlined />,
+//     label: "nav 1",
+//   },
+//   {
+//     key: "2",
+//     icon: <VideoCameraOutlined />,
+//     label: "nav 2",
+//     children: [
+//       {
+//         key: "2-1",
+//         label: "option 1",
+//       },
+//       {
+//         key: "2-2",
+//         label: "option 2",
+//       },
+//     ],
+//   },
+//   {
+//     key: "3",
+//     icon: <UploadOutlined />,
+//     label: "nav 3",
+//   },
+//   {
+//     key: "4",
+//     icon: <UserOutlined />,
+//     label: "nav 4",
+//   },
+// ];
+
+const items = generateSidebarItems(adminPaths, userRole.ADMIN);
 
 const MainLayout: React.FC = () => {
   const {
@@ -95,7 +106,7 @@ const MainLayout: React.FC = () => {
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} />
-        <Content style={{ margin: "24px 16px 0" }}>
+        <Content style={{ margin: "24px 16px 0", height: "100vh" }}>
           <div
             style={{
               padding: 24,
@@ -104,7 +115,7 @@ const MainLayout: React.FC = () => {
               borderRadius: borderRadiusLG,
             }}
           >
-            content
+            <Outlet />
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
