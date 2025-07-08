@@ -1,7 +1,9 @@
 import React from "react";
-import { Layout, Menu, theme } from "antd";
+import { Button, Layout, Menu, theme } from "antd";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
+import { useAppDispatch } from "../../redux/hooks";
+import { logout } from "../../redux/features/auth/authSlice";
 
 const { Header, Content, Footer } = Layout;
 type MenuItem = {
@@ -11,59 +13,23 @@ type MenuItem = {
   children?: MenuItem[];
 };
 
-// const items = [
-//   UserOutlined,
-//   VideoCameraOutlined,
-//   UploadOutlined,
-//   UserOutlined,
-// ].map((icon, index) => ({
-//   key: String(index + 1),
-//   icon: React.createElement(icon),
-//   label: `nav ${index + 1}`,
-// }));
-// const items: MenuItem[] = [
-//   {
-//     key: "1",
-//     icon: <UserOutlined />,
-//     label: "nav 1",
-//   },
-//   {
-//     key: "2",
-//     icon: <VideoCameraOutlined />,
-//     label: "nav 2",
-//     children: [
-//       {
-//         key: "2-1",
-//         label: "option 1",
-//       },
-//       {
-//         key: "2-2",
-//         label: "option 2",
-//       },
-//     ],
-//   },
-//   {
-//     key: "3",
-//     icon: <UploadOutlined />,
-//     label: "nav 3",
-//   },
-//   {
-//     key: "4",
-//     icon: <UserOutlined />,
-//     label: "nav 4",
-//   },
-// ];
-
 const MainLayout: React.FC = () => {
+  const dispatch = useAppDispatch();
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <Layout>
       <Sidebar />
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }} />
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button onClick={handleLogout}>Logout</Button>
+        </Header>
         <Content style={{ margin: "24px 16px 0", height: "100vh" }}>
           <div
             style={{
