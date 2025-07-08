@@ -11,7 +11,7 @@ export const adminPaths = [
   },
   {
     name: "User Management",
-    element: <User />,
+    // element: <User />,
     children: [
       {
         name: "Create Student",

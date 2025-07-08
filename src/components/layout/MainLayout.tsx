@@ -1,26 +1,14 @@
 import React from "react";
-import {
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
-import { generateSidebarItems } from "../../utils/generateSidebarItems";
-import { adminPaths } from "../../routes/admin.routes";
 import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Header, Content, Footer } = Layout;
 type MenuItem = {
   key: string;
   icon?: React.ReactNode;
   label: string;
   children?: MenuItem[];
-};
-
-const userRole = {
-  ADMIN: "admin",
-  FACULTY: "faculty",
-  STUDENT: "student",
 };
 
 // const items = [
@@ -66,8 +54,6 @@ const userRole = {
 //   },
 // ];
 
-const items = generateSidebarItems(adminPaths, userRole.ADMIN);
-
 const MainLayout: React.FC = () => {
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -75,35 +61,7 @@ const MainLayout: React.FC = () => {
 
   return (
     <Layout>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        onBreakpoint={(broken) => {
-          console.log(broken);
-        }}
-        onCollapse={(collapsed, type) => {
-          console.log(collapsed, type);
-        }}
-      >
-        <div
-          style={{
-            color: "white",
-            fontSize: "24px",
-            textAlign: "center",
-            padding: "16px 0",
-            fontWeight: "bold",
-          }}
-          className="demo-logo-vertical"
-        >
-          PHU
-        </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["4"]}
-          items={items}
-        />
-      </Sider>
+      <Sidebar />
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }} />
         <Content style={{ margin: "24px 16px 0", height: "100vh" }}>
