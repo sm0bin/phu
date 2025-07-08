@@ -7,12 +7,13 @@ import type { FieldValues } from "react-hook-form";
 import { toast } from "sonner";
 import { verifyToken } from "../utils/verifyToken";
 import { setUser, type TUser } from "../redux/features/auth/authSlice";
+import { useAppDispatch } from "../redux/hooks";
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const defaultValues = {
-    userId: "2026010016",
+    id: "2025030001",
     password: "student123",
   };
   const [login] = useLoginMutation();
@@ -27,7 +28,7 @@ const Login = () => {
       console.log("Login response:", response);
       console.log("Login successful:", response);
       toast.success("Login successful!");
-      navigate("/dashboard");
+      navigate(`/${user.role}/dashboard`);
     } catch (error) {
       console.error("Login failed:", error);
       toast.error("Login failed. Please try again.");
@@ -39,8 +40,8 @@ const Login = () => {
   return (
     <Row justify="center" align="middle" style={{ minHeight: "100vh" }}>
       <PHForm onSubmit={onSubmit} defaultValues={defaultValues}>
-        <PHInput type="text" name="userId" label="ID:" />
-        <PHInput type="password" name="password" label="Password:" />
+        <PHInput type="text" name="id" label="ID:" />
+        <PHInput type="text" name="password" label="Password:" />
         <Button htmlType="submit" type="primary" size="large" block>
           Login
         </Button>
