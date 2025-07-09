@@ -22,7 +22,7 @@ export const generateSidebarItems = (
     if (route.children && route.children.length > 0) {
       acc.push({
         key: route.name!,
-        label: <NavLink to={`/${role}/${route.path}`}>{route.name}</NavLink>,
+        label: route.name,
         children: route.children.map((child) => {
           if (child.name) {
             return {
